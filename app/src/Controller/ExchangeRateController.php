@@ -22,6 +22,7 @@ class ExchangeRateController extends AbstractController
     {
         return $this->render('exchange_rate/index.html.twig', [
             'exchange_rates' => $exchangeRateRepository->findAll(),
+            'SCALE' => \App\Service\CurrencyConverter::SCALE,
         ]);
     }
 

@@ -19,8 +19,7 @@ class importCurrencyCommand extends Command
 
     /**
      * Источники данных.
-     * Индексы массива используются для преоретета получения данных
-     * (в 0 и 1 должны находиться заданные по умолчанию значения)
+     * (в 0 и 1 индексах должны находиться заданные по умолчанию значения)
      * @var array|array[]
      */
     protected CONST IMPORT_SOURCE_OPTIONS = [
@@ -167,7 +166,7 @@ class importCurrencyCommand extends Command
      * @param array $data
      * @return array|int[]
      */
-    public function save(array $data): array
+    private function save(array $data): array
     {
         try {
             $batchSize = 20;

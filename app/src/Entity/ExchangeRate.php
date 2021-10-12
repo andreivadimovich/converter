@@ -44,9 +44,9 @@ class ExchangeRate
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getValue(): ?float
     {
-        return number_format($this->value, \App\Service\CurrencyConverter::SCALE, '.', '');
+        return $this->value;
     }
 
     public function setValue(?float $value): self

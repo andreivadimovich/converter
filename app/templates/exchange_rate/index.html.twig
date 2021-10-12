@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ exchange_rate.id }}</td>
                 <td>{{ exchange_rate.code }}</td>
-                <td>{{ exchange_rate.value }}</td>
+                <td>{{ exchange_rate.value|number_format(SCALE, '.', '') }}</td>
                 <td>
                     <a href="{{ path('exchange_rate_show', {'id': exchange_rate.id}) }}">show</a>
                     <a href="{{ path('exchange_rate_edit', {'id': exchange_rate.id}) }}">edit</a>
