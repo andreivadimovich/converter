@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exchange rate{% endblock %}
+
+{% block body %}
+    <h1>Exchange rate | <a href="/converter">Converter</a></h1>
+    <a href="{{ path('exchange_rate_new') }}">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for exchange_rate in exchange_rates %}
+            <tr>
+                <td>{{ exchange_rate.id }}</td>
+                <td>{{ exchange_rate.code }}</td>
+                <td>{{ exchange_rate.value }}</td>
+                <td>
+                    <a href="{{ path('exchange_rate_show', {'id': exchange_rate.id}) }}">show</a>
+                    <a href="{{ path('exchange_rate_edit', {'id': exchange_rate.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
