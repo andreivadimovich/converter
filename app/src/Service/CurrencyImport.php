@@ -3,7 +3,6 @@
 namespace App\Service;
 
 use App\Service\CurrencyConverter;
-use Doctrine\DBAL\Exception;
 
 class CurrencyImport
 {
@@ -122,26 +121,37 @@ class CurrencyImport
         $main = array_column($data['0'],  'value', 'code');
         $result = $main;
 
-        // Добавляет новые котировки из дополнительных источников, если нет в главном массиве
+        // Добавление котировок из дополнительных источников, если нет в главном массиве
         $second = array_slice($data, 1);
-        if (isset($second['0'])) {
-            $secondFormatted = [];
-            foreach($second as $key => $row) {
-                $more = array_column($row,  'value', 'code');
-                $secondFormatted = array_merge($secondFormatted, $more);
-            }
-            $secondFormatted = array_unique($secondFormatted);
-
-            $secondResult = [];
-            foreach($secondFormatted as $key => $val) {
-                if (empty($main[$key])) {
-                    $secondResult[$key] = $val;
-                }
-            }
-
+        if (isset($second['0']) && !empty($second['0'])) {
+            $secondResult = self::rebuildSecondData($second);
             $result = array_merge($result, $secondResult);
         }
-        
+
+        return $result;
+    }
+
+
+    /**
+     * @param array $second
+     * @return array
+     */
+    protected function rebuildSecondData(array $second): array
+    {
+        $secondFormatted = [];
+        foreach($second as $key => $row) {
+            $more = array_column($row,  'value', 'code');
+            $secondFormatted = array_merge($secondFormatted, $more);
+        }
+        $secondFormatted = array_unique($secondFormatted);
+
+        $result = [];
+        foreach($secondFormatted as $key => $val) {
+            if (empty($main[$key])) {
+                $result[$key] = $val;
+            }
+        }
+
         return $result;
     }
 

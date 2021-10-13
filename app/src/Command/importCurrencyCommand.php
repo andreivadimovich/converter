@@ -131,7 +131,7 @@ class importCurrencyCommand extends Command
                 $io->error("Error! Request to {$url} failed. Status = {$statusError}");
             }
         }
-        return $result;
+        return $result ?: ['error' => 'Empty data'];
     }
 
 
