@@ -92,7 +92,7 @@ class CurrencyImport
     }
 
     /**
-     * Изменить курс BTC по отношению к EUR
+     * Изменение курса BTC по отношению к EUR
      * @param array $data
      * @return array
      */
